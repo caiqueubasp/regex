@@ -259,3 +259,97 @@ let stringZC = "123 456 7890";
 let rexZC = /\d+? \d+? \d+?/g;
 document.write(stringZC.match(rexZC));
 document.write("<br> <br>");
+
+//// Grouping and capture groups - latest update ES
+// Grouping in Javascript Regex (Capture groups)
+// Lets you apply quantifiers to groups of character, not just one
+// [a-z], [0-9], [0-9a-zA-Z]*, a+, .+
+// hehehe, (he)+ -hehehe, go+
+
+let stringAB = "Heheh";
+let rexAB = /(he)+/gi;
+document.write(stringAB.match(rexAB));
+document.write("<br> <br>");
+document.write(rexAB.test(stringAB));
+document.write("<br> <br>");
+
+// can get a part of the group as a match in the array
+// match[0] - full match
+//match[1] - contents of the first parenthesis/ capture group an so on
+// Dont use global flag
+
+let stringAA = "Hehehe! Hohoho!";
+let rexAA = /(he)+! (ho)+!/i;
+let matchAA = stringAA.match(rexAA);
+document.write(stringAA.match(rexAA));
+document.write("<br> <br>");
+document.write(rexAA.test(stringAA));
+document.write("<br> <br>");
+document.write(matchAA[2]);
+document.write("<br> <br>");
+
+/// Nested groups - parentesis can be nested
+// (he?(ho)+)*
+// sequence of nunbers, any number of numbers, separeted by spaces,
+// and multiple numbers like that
+// starts with numbers, can have spaces (or not)
+// (last sequence can end with number sequences or no)
+
+let stringAC = "123 abc";
+let rexAC = /(([0-9]+)\s?)+\s?([a-z]*)/i;
+let matchAC = stringAC.match(rexAC);
+document.write(stringAC.match(rexAC));
+document.write("<br> <br>");
+document.write(rexAC.test(stringAC));
+document.write("<br> <br>");
+document.write(matchAC[2]);
+document.write("<br> <br>");
+
+//Named captured groups
+// name each captures group so you can reference them later in
+// outputs
+// (?<name>contents)+
+// phone number format - Country code, area code, number part 1, number part 2
+// +1 (425) 555-2551
+
+let stringAD = "+1 (425) 555-2551";
+let rexAD = /(?<int>\+[0-9]\s)?(?<area>\([0-9]{3}\)) (?<num1>[0-9]{3})-(?<num2>[0-9]{4})/i;
+let matchAD = stringAD.match(rexAD).groups;
+document.write(matchAD.int);
+document.write("<br>");
+document.write(matchAD.area);
+document.write("<br>");
+document.write(matchAD.num1);
+document.write("<br>");
+document.write(matchAD.num2);
+document.write("<br> <br>");
+
+// Using captures Groups in search an replace function
+let stringAE = "Caique Souza";
+let rexAE = /(\w+) (\w+)/i;
+document.write(stringAE.replace(rexAE, "$2, $1"));
+document.write("<br> <br>");
+
+/// Non capturing parenthesis
+// Exclude a captures group from results/array of the array
+//of results the matches
+// ?: at the start of the parenthesis
+// it' ll still be a part of the complete match
+// but it won't be a separate array item
+
+let stringAF = "Hehehe Funny!";
+let rexAF = /(?:he)+ (\w+)!/i;
+let matchAF = stringAF.match(rexAF);
+document.write(matchAF[1]);
+document.write("<br> <br>");
+
+// Backreferencing a group - reference the group late
+// in the regex to specify that it has to be replicated exactlt as it is
+// By number - \N
+// *Hello*, &Hello&, @Hello@
+
+let stringAG = "*#Hello#*";
+let rexAG = /(?<spl>[@#\*])\w+\k<spl>/i;
+let matchAG = stringAG.match(rexAG);
+document.write(matchAG);
+document.write("<br> <br>");
