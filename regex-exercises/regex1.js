@@ -353,3 +353,33 @@ let rexAG = /(?<spl>[@#\*])\w+\k<spl>/i;
 let matchAG = stringAG.match(rexAG);
 document.write(matchAG);
 document.write("<br> <br>");
+
+// Positive and negatives lookheads and lookbehinds
+// Psitive lookheads - only match something that is followed by
+// something else
+// (?=x)
+// Negative lookheads - only match if its not
+// followed by whatever's in the lookahead
+// (?!in)
+
+let stringAH = "30cm 40in 55mm 60ins";
+// let rexAH = /\d+(?=in)/g; // Positive
+let rexAH = /\d+(?!in)/g; //Negative
+let matchAH = stringAH.match(rexAH);
+document.write(matchAH);
+document.write("<br> <br>");
+
+//Positive lookbehind - only output whatever is
+// preceded by the lookbehind value
+// (?<=Y)X
+// Negative Lookbehind - only output whatever is NOT preceded
+// by the lookbehind value
+// (?<!Y)X
+
+let stringAI = "$50 456 $23 $67";
+// let rexAI = /(?<=\$)\d+/g; //Positive
+
+let rexAI = /(?<!\$)\d+/g; //Negative
+let matchAI = stringAI.match(rexAI);
+document.write(matchAI);
+document.write("<br> <br>");
